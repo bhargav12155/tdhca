@@ -1,0 +1,86 @@
+// TDHCA Theme Colors
+:host {
+  --tdhca-blue: #002855;
+  --tdhca-blue-light: #0072ce;
+  --tdhca-gold: #ffd100;
+  --tdhca-gray-bg: #f2f2f2;
+  --tdhca-body: #212121;
+  --tdhca-white: #ffffff;
+}
+
+.sidenav-container {
+  width: 280px;
+  height: 100%;
+  background-color: var(--tdhca-white);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  .sidenav-header {
+    background-color: var(--tdhca-blue);
+    color: var(--tdhca-white);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    .logo {
+      max-width: 120px;
+      margin-bottom: 10px;
+    }
+    
+    h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
+  
+  mat-divider {
+    margin: 0;
+  }
+  
+  mat-nav-list {
+    padding: 0;
+    
+    h3[matSubheader] {
+      color: var(--tdhca-blue);
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-top: 16px;
+      padding-left: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    a.mat-mdc-list-item {
+      height: 48px;
+      
+      &:hover {
+        background-color: rgba(0, 40, 85, 0.05);
+      }
+      
+      &.active {
+        background-color: var(--tdhca-gold);
+        color: var(--tdhca-blue);
+        
+        mat-icon {
+          color: var(--tdhca-blue);
+        }
+      }
+      
+      mat-icon {
+        color: var(--tdhca-blue-light);
+      }
+    }
+  }
+}
+
+// Media query for mobile
+@media (max-width: 768px) {
+  .sidenav-container {
+    width: 256px;
+  }
+}

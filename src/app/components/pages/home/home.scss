@@ -1,0 +1,175 @@
+// TDHCA Theme Colors
+:host {
+  --tdhca-blue: #002855;
+  --tdhca-blue-light: #0072ce;
+  --tdhca-gold: #ffd100;
+  --tdhca-gray-bg: #f2f2f2;
+  --tdhca-body: #212121;
+  --tdhca-white: #ffffff;
+}
+
+.application-container {
+  width: 100%;
+  background-color: var(--tdhca-gray-bg);
+  min-height: calc(100vh - 64px); // Adjust based on your header height
+  display: flex;
+  
+  // Left sidebar with application steps
+  .steps-navigation {
+    width: 280px;
+    background-color: var(--tdhca-white);
+    padding: 20px 0;
+    border-right: 1px solid #e0e0e0;
+    
+    h2 {
+      color: var(--tdhca-blue);
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 0;
+      padding: 0 20px 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        margin: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        
+        a {
+          display: block;
+          padding: 12px 20px;
+          text-decoration: none;
+          color: var(--tdhca-body);
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background-color: rgba(0, 114, 206, 0.05);
+            color: var(--tdhca-blue-light);
+          }
+          
+          &.active {
+            background-color: var(--tdhca-gold);
+            color: var(--tdhca-blue);
+            font-weight: 500;
+            border-left: 4px solid var(--tdhca-blue);
+          }
+        }
+      }
+    }
+  }
+  
+  // Content area
+  .content-area {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    
+    // Existing styles for your form elements
+    .form-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    mat-card {
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+      
+      mat-card-header {
+        background-color: var(--tdhca-blue);
+        color: white;
+        padding: 16px;
+        margin: 0px 0px 16px 0px;
+        border-radius: 8px 8px 0 0;
+      }
+    }
+    
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -10px;
+      
+      .form-field {
+        flex: 1 1 200px;
+        margin: 0 10px 16px;
+      }
+    }
+    
+    .full-width-field {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+    
+    .phone-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 16px;
+      
+      mat-form-field {
+        margin-right: 16px;
+        flex: 1;
+      }
+      
+      mat-checkbox {
+        margin: 0 16px;
+      }
+    }
+    
+    .address-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .address-group {
+      h3 {
+        display: flex;
+        align-items: center;
+        margin-top: 0;
+        color: var(--tdhca-blue);
+        
+        .same-address-checkbox {
+          margin-left: 16px;
+        }
+      }
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+      
+      button {
+        margin-left: 8px;
+        
+        &[color="primary"] {
+          background-color: var(--tdhca-blue);
+        }
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    flex-direction: column;
+    
+    .steps-navigation {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .content-area {
+      padding: 16px;
+    }
+  }
+}

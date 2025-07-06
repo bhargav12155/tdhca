@@ -1,0 +1,13 @@
+{
+  "header": {
+    "siteName": "Departamento de Vivienda y Asuntos Comunitarios de Texas",
+    "navHome": "Inicio",
+    "navCreateAccount": "Crear Cuenta",
+    "navHelp": "Ayuda",
+    "navApplication": "Solicitud",
+    "navLanguage": "Idioma",
+    "langEnglish": "Inglés",
+    "langSpanish": "Español",
+    "navLogin": "Iniciar Sesión"
+  }
+}

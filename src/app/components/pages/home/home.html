@@ -1,0 +1,348 @@
+<div class="application-container">
+  <div class="steps-navigation">
+    <h2>Application Steps</h2>
+    <ul>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('personal-info')"
+          [class.active]="activeStep === 'personal-info'">Personal Information</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('household-members')"
+          [class.active]="activeStep === 'household-members'">Household Members</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('categorical-eligibility')"
+          [class.active]="activeStep === 'categorical-eligibility'">Categorical Eligibility</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('income')" [class.active]="activeStep === 'income'">Income
+          Information</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('income-statement')"
+          [class.active]="activeStep === 'income-statement'">Declaration of Income Statement</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('housing')"
+          [class.active]="activeStep === 'housing'">Housing Information</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('save-verification')"
+          [class.active]="activeStep === 'save-verification'">SAVE System Verification</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('utility')"
+          [class.active]="activeStep === 'utility'">Utility Service</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('documents')"
+          [class.active]="activeStep === 'documents'">Document Upload</a></li>
+      <li><a href="javascript:void(0)" (click)="setActiveStep('submission')"
+          [class.active]="activeStep === 'submission'">Application Submission</a></li>
+    </ul>
+  </div>
+
+  <!-- Content area -->
+  <div class="content-area">
+    <!-- Personal Information Form (your existing form) -->
+    <div *ngIf="activeStep === 'personal-info'">
+      <div class="form-container">
+        <form [formGroup]="householdForm" (ngSubmit)="onSubmit()">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Personal Information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="form-row">
+                <mat-form-field class="form-field">
+                  <mat-label>Prefix</mat-label>
+                  <mat-select formControlName="prefix" matTooltip="Select your title (e.g., Mr., Mrs., Ms.)">
+                    <mat-option *ngFor="let p of prefixes" [value]="p">{{p}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>First Name</mat-label>
+                  <input matInput formControlName="firstName" required
+                    matTooltip="Enter your first name as it appears on official documents.">
+                  <mat-error *ngIf="householdForm.get('firstName')!.hasError('required')">First Name is
+                    required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>Middle Name</mat-label>
+                  <input matInput formControlName="middleName" matTooltip="Enter your middle name, if you have one.">
+                </mat-form-field>
+              </div>
+              <div class="form-row">
+                <mat-form-field class="form-field">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput formControlName="lastName" required
+                    matTooltip="Enter your last name as it appears on official documents.">
+                  <mat-error *ngIf="householdForm.get('lastName')!.hasError('required')">Last Name is
+                    required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>Suffix</mat-label>
+                  <mat-select formControlName="suffix"
+                    matTooltip="Select a suffix, if applicable (e.g., Jr., Sr., III).">
+                    <mat-option *ngFor="let s of suffixes" [value]="s">{{s}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>Date of Birth</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="dob" required
+                    matTooltip="Enter your date of birth (MM/DD/YYYY).">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="householdForm.get('dob')!.hasError('required')">Date of Birth is
+                    required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>Gender</mat-label>
+                  <mat-select formControlName="gender" required matTooltip="Select your gender.">
+                    <mat-option *ngFor="let g of genders" [value]="g">{{g}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="householdForm.get('gender')!.hasError('required')">Gender is required</mat-error>
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-divider></mat-divider>
+
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Contact Information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div formArrayName="phoneNumbers">
+                <div *ngFor="let phone of phoneNumbers.controls; let i=index" [formGroupName]="i" class="phone-row">
+                  <mat-form-field>
+                    <mat-label>Phone Type</mat-label>
+                    <mat-select formControlName="phoneType" required
+                      matTooltip="Select the type of phone number (e.g., Mobile, Work).">
+                      <mat-option *ngFor="let type of phoneTypes" [value]="type">{{type}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="phoneNumber" required placeholder="e.g. 1234567890"
+                      matTooltip="Enter a 10-digit phone number.">
+                    <mat-error *ngIf="phone.get('phoneNumber')!.hasError('required')">Phone number is
+                      required</mat-error>
+                    <mat-error *ngIf="phone.get('phoneNumber')!.hasError('pattern')">Invalid phone number
+                      format</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Extension</mat-label>
+                    <input matInput formControlName="extension" matTooltip="Enter the phone extension, if any.">
+                  </mat-form-field>
+                  <mat-checkbox formControlName="isPrimary"
+                    matTooltip="Check this box if this is your primary contact number.">Is Primary</mat-checkbox>
+                  <button mat-icon-button color="warn" (click)="removePhoneNumber(i)" *ngIf="phoneNumbers.length > 1"
+                    matTooltip="Remove Phone Number">
+                    <mat-icon>remove_circle</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <button mat-stroked-button color="primary" (click)="addPhoneNumber()" type="button"
+                matTooltip="Add another phone number.">
+                <mat-icon>add</mat-icon> Add Phone Number
+              </button>
+              <mat-form-field class="full-width-field">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" required type="email"
+                  matTooltip="Enter your primary email address.">
+                <mat-error *ngIf="householdForm.get('email')!.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="householdForm.get('email')!.hasError('email')">Invalid email format</mat-error>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-divider></mat-divider>
+
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Address Information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="address-grid">
+                <div formGroupName="mailingAddress" class="address-group">
+                  <h3>Mailing Address</h3>
+                  <mat-form-field class="full-width-field">
+                    <mat-label>Address Line 1</mat-label>
+                    <input matInput formControlName="addressLine1" required
+                      matTooltip="Enter the first line of your mailing address.">
+                  </mat-form-field>
+                  <mat-form-field class="full-width-field">
+                    <mat-label>Address Line 2</mat-label>
+                    <input matInput formControlName="addressLine2"
+                      matTooltip="Enter the second line of your mailing address, if applicable (e.g., apartment, suite number).">
+                  </mat-form-field>
+                  <div class="form-row">
+                    <mat-form-field class="form-field">
+                      <mat-label>City</mat-label>
+                      <input matInput formControlName="city" required matTooltip="Enter your city.">
+                    </mat-form-field>
+                    <mat-form-field class="form-field">
+                      <mat-label>Zip Code</mat-label>
+                      <input matInput formControlName="zipCode" required matTooltip="Enter your ZIP code.">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-row">
+                    <mat-form-field class="form-field">
+                      <mat-label>State</mat-label>
+                      <mat-select formControlName="state" required matTooltip="Select your state.">
+                        <mat-option *ngFor="let state of states"
+                          [value]="state.abbreviation">{{state.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="form-field">
+                      <mat-label>County</mat-label>
+                      <mat-select formControlName="county" required matTooltip="Select your county.">
+                        <mat-option *ngFor="let county of counties" [value]="county">{{county}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="address-group">
+                  <h3>
+                    Billing Address
+                    <mat-checkbox formControlName="sameAsMailing" class="same-address-checkbox"
+                      matTooltip="Check this box if your billing address is the same as your mailing address.">Same as
+                      Mailing</mat-checkbox>
+                  </h3>
+                  <div formGroupName="billingAddress">
+                    <mat-form-field class="full-width-field">
+                      <mat-label>Address Line 1</mat-label>
+                      <input matInput formControlName="addressLine1" required
+                        matTooltip="Enter the first line of your billing address.">
+                    </mat-form-field>
+                    <mat-form-field class="full-width-field">
+                      <mat-label>Address Line 2</mat-label>
+                      <input matInput formControlName="addressLine2"
+                        matTooltip="Enter the second line of your billing address, if applicable.">
+                    </mat-form-field>
+                    <div class="form-row">
+                      <mat-form-field class="form-field">
+                        <mat-label>City</mat-label>
+                        <input matInput formControlName="city" required matTooltip="Enter your billing city.">
+                      </mat-form-field>
+                      <mat-form-field class="form-field">
+                        <mat-label>Zip Code</mat-label>
+                        <input matInput formControlName="zipCode" required matTooltip="Enter your billing ZIP code.">
+                      </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                      <mat-form-field class="form-field">
+                        <mat-label>State</mat-label>
+                        <mat-select formControlName="state" required matTooltip="Select your billing state.">
+                          <mat-option *ngFor="let state of states"
+                            [value]="state.abbreviation">{{state.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="form-field">
+                        <mat-label>County</mat-label>
+                        <mat-select formControlName="county" required matTooltip="Select your billing county.">
+                          <mat-option *ngFor="let county of counties" [value]="county">{{county}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" style="color: white;">Save and Continue</button>
+            <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Placeholder for other sections -->
+    <div *ngIf="activeStep === 'household-members'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Household Members</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the household members form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="activeStep === 'categorical-eligibility'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Categorical Eligibility</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the categorical eligibility form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="activeStep === 'income'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Income Information</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the income information form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="activeStep === 'income-statement'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Declaration of Income Statement</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the declaration of income statement form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="activeStep === 'housing'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Housing Information</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the housing information form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="activeStep === 'save-verification'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>SAVE System Verification</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the SAVE system verification form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="activeStep === 'utility'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Utility Service</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the utility service form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="activeStep === 'documents'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Document Upload</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the document upload form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="activeStep === 'submission'">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Application Submission</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>This section will contain the application submission form.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

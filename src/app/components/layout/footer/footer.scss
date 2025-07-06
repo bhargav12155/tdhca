@@ -1,0 +1,125 @@
+// TDHCA Theme Colors
+:host {
+  --tdhca-blue: #002855;
+  --tdhca-blue-light: #0072ce;
+  --tdhca-gold: #ffd100;
+  --tdhca-gray-bg: #f2f2f2;
+  --tdhca-body: #212121;
+  --tdhca-white: #ffffff;
+}
+
+.app-footer {
+  background-color: var(--tdhca-blue);
+  padding: 2rem 0;
+  margin-top: 2rem;
+  color: var(--tdhca-white);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 1.5rem;
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--tdhca-gold);
+  }
+  
+  h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--tdhca-gold);
+  }
+  
+  p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+.logo-section {
+  .footer-logo {
+    max-width: 180px;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1); /* Makes the logo white if it's dark */
+  }
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+  
+  a {
+    color: var(--tdhca-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    
+    &:hover {
+      color: var(--tdhca-gold);
+      text-decoration: underline;
+    }
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--tdhca-blue-light);
+    color: white;
+    text-decoration: none;
+    
+    &:hover {
+      background-color: var(--tdhca-gold);
+      color: var(--tdhca-blue);
+    }
+  }
+}
+
+.sub-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  
+  p {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 1rem;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+  }
+  
+  .footer-section {
+    margin-bottom: 2rem;
+  }
+}

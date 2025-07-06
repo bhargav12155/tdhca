@@ -1,0 +1,191 @@
+<div class="form-container">
+  <form [formGroup]="householdForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Head of Household Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-row">
+          <mat-form-field class="form-field">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required>
+            <mat-error *ngIf="householdForm.get('firstName')!.hasError('required')">First Name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field mi-field">
+            <mat-label>MI</mat-label>
+            <input matInput formControlName="mi" maxlength="1">
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" required>
+            <mat-error *ngIf="householdForm.get('lastName')!.hasError('required')">Last Name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="form-field">
+            <mat-label>Prefix</mat-label>
+            <mat-select formControlName="prefix">
+              <mat-option *ngFor="let p of prefixes" [value]="p">{{p}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Suffix</mat-label>
+            <mat-select formControlName="suffix">
+              <mat-option *ngFor="let s of suffixes" [value]="s">{{s}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dob" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="householdForm.get('dob')!.hasError('required')">Date of Birth is required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender" required>
+              <mat-option *ngFor="let g of genders" [value]="g">{{g}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="householdForm.get('gender')!.hasError('required')">Gender is required</mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-divider></mat-divider>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Contact Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div formArrayName="phoneNumbers">
+          <div *ngFor="let phone of phoneNumbers.controls; let i=index" [formGroupName]="i" class="phone-row">
+            <mat-form-field>
+              <mat-label>Phone Type</mat-label>
+              <mat-select formControlName="phoneType" required>
+                <mat-option *ngFor="let type of phoneTypes" [value]="type">{{type}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Phone Number</mat-label>
+              <input matInput formControlName="phoneNumber" required placeholder="e.g. 1234567890">
+              <mat-error *ngIf="phone.get('phoneNumber')!.hasError('required')">Phone number is required</mat-error>
+              <mat-error *ngIf="phone.get('phoneNumber')!.hasError('pattern')">Invalid phone number format</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Extension</mat-label>
+              <input matInput formControlName="extension">
+            </mat-form-field>
+            <mat-checkbox formControlName="isPrimary">Is Primary</mat-checkbox>
+            <button mat-icon-button color="warn" (click)="removePhoneNumber(i)" *ngIf="phoneNumbers.length > 1" matTooltip="Remove Phone Number">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+          </div>
+        </div>
+        <button mat-stroked-button color="primary" (click)="addPhoneNumber()" type="button">
+          <mat-icon>add</mat-icon> Add Phone Number
+        </button>
+        <mat-form-field class="full-width-field">
+          <mat-label>Email Address</mat-label>
+          <input matInput formControlName="email" required type="email">
+          <mat-error *ngIf="householdForm.get('email')!.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="householdForm.get('email')!.hasError('email')">Invalid email format</mat-error>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-divider></mat-divider>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Address Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="address-grid">
+          <div formGroupName="mailingAddress" class="address-group">
+            <h3>Mailing Address</h3>
+            <mat-form-field class="full-width-field">
+              <mat-label>Address Line 1</mat-label>
+              <input matInput formControlName="addressLine1" required>
+            </mat-form-field>
+            <mat-form-field class="full-width-field">
+              <mat-label>Address Line 2</mat-label>
+              <input matInput formControlName="addressLine2">
+            </mat-form-field>
+            <div class="form-row">
+              <mat-form-field class="form-field">
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" required>
+              </mat-form-field>
+              <mat-form-field class="form-field">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state" required>
+                  <mat-option *ngFor="let state of states" [value]="state.abbreviation">{{state.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="form-row">
+              <mat-form-field class="form-field">
+                <mat-label>Zip Code</mat-label>
+                <input matInput formControlName="zipCode" required>
+              </mat-form-field>
+              <mat-form-field class="form-field">
+                <mat-label>County</mat-label>
+                <mat-select formControlName="county" required>
+                   <mat-option *ngFor="let county of counties" [value]="county">{{county}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="address-group">
+            <h3>
+              Billing Address
+              <mat-checkbox formControlName="sameAsMailing" class="same-address-checkbox">Same as Mailing</mat-checkbox>
+            </h3>
+            <div formGroupName="billingAddress">
+              <mat-form-field class="full-width-field">
+                <mat-label>Address Line 1</mat-label>
+                <input matInput formControlName="addressLine1" required>
+              </mat-form-field>
+              <mat-form-field class="full-width-field">
+                <mat-label>Address Line 2</mat-label>
+                <input matInput formControlName="addressLine2">
+              </mat-form-field>
+              <div class="form-row">
+                <mat-form-field class="form-field">
+                  <mat-label>City</mat-label>
+                  <input matInput formControlName="city" required>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>State</mat-label>
+                  <mat-select formControlName="state" required>
+                    <mat-option *ngFor="let state of states" [value]="state.abbreviation">{{state.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="form-row">
+                <mat-form-field class="form-field">
+                  <mat-label>Zip Code</mat-label>
+                  <input matInput formControlName="zipCode" required>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                  <mat-label>County</mat-label>
+                  <mat-select formControlName="county" required>
+                     <mat-option *ngFor="let county of counties" [value]="county">{{county}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Save and Continue</button>
+      <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

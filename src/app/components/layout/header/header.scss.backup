@@ -1,0 +1,64 @@
+.tdhca-header {
+  background-color: var(--tdhca-blue);
+  color: var(--tdhca-white);
+
+  .header-wrap {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo-title {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+
+    .tdhca-logo {
+      height: 40px;
+      margin-right: 16px;
+    }
+
+    .site-name {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.2;
+      text-decoration: none;
+      color: var(--tdhca-white);
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .main-nav {
+    display: none;
+
+    a,
+    button {
+      color: var(--tdhca-white);
+    }
+  }
+
+  .mobile-menu-button {
+    display: block;
+    color: var(--tdhca-white);
+  }
+
+  // Desktop styles
+  @media (min-width: 992px) {
+    .main-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-menu-button {
+      display: none;
+    }
+
+    .site-name {
+      font-size: 1.25rem;
+    }
+  }
+}

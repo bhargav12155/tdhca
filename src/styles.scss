@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+:root {
+  --tdhca-blue: #002855;
+  --tdhca-blue-light: #0072ce;
+  --tdhca-gold: #ffd100;
+  --tdhca-gray-bg: #f2f2f2;
+  --tdhca-body: #212121;
+  --tdhca-white: #ffffff;
+}
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

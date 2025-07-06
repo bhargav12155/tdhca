@@ -1,0 +1,72 @@
+<div class="sidenav-container">
+  <div class="sidenav-header">
+    <h2>TDHCA Portal</h2>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <mat-nav-list>
+    <h3 matSubheader>Main</h3>
+    <a mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+      (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>home</mat-icon>
+      <span matListItemTitle>Home</span>
+    </a>
+    <a mat-list-item routerLink="/dashboard" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>dashboard</mat-icon>
+      <span matListItemTitle>Dashboard</span>
+    </a>
+
+    <mat-divider></mat-divider>
+
+    <h3 matSubheader>Applications</h3>
+    <a mat-list-item routerLink="/application" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>description</mat-icon>
+      <span matListItemTitle>Application</span>
+    </a>
+    <a mat-list-item routerLink="/applications/new" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>add_circle</mat-icon>
+      <span matListItemTitle>New Application</span>
+    </a>
+    <a mat-list-item routerLink="/applications/manage" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>list</mat-icon>
+      <span matListItemTitle>Manage Applications</span>
+    </a>
+    <a mat-list-item routerLink="/applications/status" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>history</mat-icon>
+      <span matListItemTitle>Status History</span>
+    </a>
+
+    <mat-divider></mat-divider>
+
+    <h3 matSubheader>Help</h3>
+    <a mat-list-item routerLink="/help" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>help</mat-icon>
+      <span matListItemTitle>Help Center</span>
+    </a>
+    <a mat-list-item href="https://www.tdhca.state.tx.us/contact.htm" target="_blank" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>contact_support</mat-icon>
+      <span matListItemTitle>Contact Us</span>
+    </a>
+
+    <mat-divider></mat-divider>
+
+    <h3 matSubheader>Account</h3>
+    <a mat-list-item routerLink="/create-account" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>person_add</mat-icon>
+      <span matListItemTitle>Create Account</span>
+    </a>
+    <a mat-list-item routerLink="/login" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>login</mat-icon>
+      <span matListItemTitle>Login</span>
+    </a>
+    <a mat-list-item routerLink="/profile" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>person</mat-icon>
+      <span matListItemTitle>Profile</span>
+    </a>
+    <a mat-list-item routerLink="/settings" routerLinkActive="active" (click)="closeOnMobile()">
+      <mat-icon matListItemIcon>settings</mat-icon>
+      <span matListItemTitle>Settings</span>
+    </a>
+  </mat-nav-list>
+</div>

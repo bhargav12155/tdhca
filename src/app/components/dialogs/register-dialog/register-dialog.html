@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Create Your Account</h2>
+<mat-dialog-content>
+  <form [formGroup]="registerForm" id="registerForm">
+    <mat-form-field class="full-width-field">
+      <mat-label>Email Address</mat-label>
+      <input matInput formControlName="email" required type="email" placeholder="Enter your email">
+      <mat-error *ngIf="registerForm.get('email')?.hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="registerForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-field">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" required type="password" placeholder="Create a password">
+      <mat-error *ngIf="registerForm.get('password')?.hasError('required')">Password is required</mat-error>
+      <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at least 8 characters long</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-field">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput formControlName="confirmPassword" required type="password" placeholder="Confirm your password">
+      <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">Please confirm your password</mat-error>
+      <mat-error *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">Passwords do not match</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!registerForm.valid">Create Account</button>
+</mat-dialog-actions>

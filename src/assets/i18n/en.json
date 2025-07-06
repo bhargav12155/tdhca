@@ -1,0 +1,13 @@
+{
+  "header": {
+    "siteName": "Texas Department of Housing & Community Affairs",
+    "navHome": "Home",
+    "navCreateAccount": "Create Account",
+    "navHelp": "Help",
+    "navApplication": "Application",
+    "navLanguage": "Language",
+    "langEnglish": "English",
+    "langSpanish": "Spanish",
+    "navLogin": "Login"
+  }
+}

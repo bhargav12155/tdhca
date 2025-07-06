@@ -1,0 +1,43 @@
+.layout {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.side-nav {
+  flex: 0 0 250px; /* Do not grow, do not shrink, base width of 250px */
+  background-color: #f4f4f4;
+  padding: 1rem;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.side-nav h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.side-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-nav li a {
+  display: block;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: #333;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.side-nav li a:hover {
+  background-color: #e0e0e0;
+}
+
+main {
+  flex-grow: 1; /* Take up the remaining space */
+}

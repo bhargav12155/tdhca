@@ -1,0 +1,77 @@
+.form-container {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 16px;
+}
+
+mat-card {
+  margin-bottom: 24px;
+}
+
+mat-divider {
+  margin-bottom: 24px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-field {
+  flex: 1 1 200px;
+}
+
+.mi-field {
+  flex: 0 1 60px;
+}
+
+.full-width-field {
+  width: 100%;
+}
+
+.phone-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.address-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.address-group {
+  h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+}
+
+.same-address-checkbox {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
