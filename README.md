@@ -1,63 +1,92 @@
 # TDHCA Portal Application
 
-This project is an Angular-based web application for the TDHCA portal.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
 
-## Prerequisites
+---
 
-Before you begin, ensure you have the following installed on your system:
+## Project Structure & Navigation
 
-- **Node.js**: Version `^18.19.0` or `^20.9.0` or higher.
-- **npm**: Version `10.x` or higher (comes bundled with Node.js).
-- **Git**: For cloning and managing the source code.
-
-## Getting Started
-
-Follow these steps to get the application running on your local machine.
-
-### 1. Clone the Repository
-
-Open your terminal or command prompt and run the following command to clone the project from GitHub:
-
-```bash
-git clone https://github.com/bhargav12155/tdhca.git
+```
+src/app/
+├── components/
+│   ├── dialogs/       # Reusable modal dialogs (e.g., registration)
+│   ├── layout/        # Structural components (header, footer, sidebar)
+│   └── pages/         # Page-level components (home, dashboard)
+├── services/          # Shared services (e.g., sidebar state management)
+├── app.routes.ts      # Main application routing configuration
+└── styles.scss        # Global stylesheet where variables for colors and fonts are defined.
 ```
 
-### 2. Navigate to the Project Directory
+## Routing Overview
 
-Change your current directory to the project folder:
+- `/home` – The main landing page with the primary application form.
+- `/dashboard` – The user's main dashboard (placeholder).
+- `/application` – The main application view (placeholder).
+- The default route (`/`) redirects to `/home`.
 
-```bash
-cd tdhca/TDHCA
-```
+## Navigation & Button Behavior
 
-### 3. Install Dependencies
+- **Header and Sidebar:**
+  - Both contain navigation links for Home, Dashboard, and Application.
+  - The **Create Account** button in the header opens a modal dialog, not a separate page.
+  - The sidebar automatically closes after any navigation link is clicked.
 
-Run the following command to install all the necessary packages and libraries required by the project. This might take a few minutes.
+- **Form Buttons (`home.html`):**
+  - **Save and Continue:** Submits the main application form.
+  - **Cancel:** Resets the form and shows a Material Snackbar notification ("Action Cancelled").
 
-```bash
-npm install
-```
+- **Create Account Modal:**
+  - Triggered from the header.
+  - Appears as a dialog overlay. Clicking "Cancel" dismisses the dialog and shows a snackbar.
 
-### 4. Run the Application
+## Mobile Responsiveness
 
-Once the dependencies are installed, you can start the local development server with the following command:
+- The layout is fully responsive:
+  - On mobile, the main navigation in the header collapses into a hamburger menu.
+  - The sidebar becomes a drawer that overlays the content.
+  - Form fields and buttons stack vertically for better usability on smaller screens.
+
+## How the App Works
+
+- Users start at the Home page, which contains the main multi-step application form.
+- Navigation is available at all times via the header and the collapsible sidebar.
+- The Create Account modal can be opened from anywhere in the application without interrupting the user's workflow.
+- All forms include validation, descriptive tooltips, and placeholders for a professional user experience.
+
+---
+
+## Development server
+
+To start a local development server, run:
 
 ```bash
 npx ng serve
 ```
 
-This command will compile the application and start a server. By default, it will be available at `http://localhost:4200/`.
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-### 5. Open in Browser
+## Code scaffolding
 
-Open your favorite web browser and navigate to:
+To generate a new component, run:
 
-[http://localhost:4200/](http://localhost:4200/)
+```bash
+npx ng generate component component-name
+```
 
-The application should now be running. The server will automatically reload the page whenever you make changes to the source files.
+## Building
 
-## Available Scripts
+To build the project for production, run:
 
-- `npm start`: Alias for `ng serve`.
-- `npm run build`: Compiles the application for production.
-- `npm test`: Runs the unit tests via Karma.
+```bash
+npx ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory.
+
+## Running unit tests
+
+To execute unit tests with Karma, use the following command:
+
+```bash
+npx ng test
+```
