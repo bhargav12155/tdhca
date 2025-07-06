@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -31,14 +32,14 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSnackBarModule
   ],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
 export class Home implements OnInit {
   householdForm!: FormGroup;
-  // Explicitly initialize activeStep to ensure it's never undefined
   activeStep = 'personal-info';
 
   prefixes = ['Mr.', 'Mrs.', 'Ms.', 'Miss', 'Dr.', 'Prof.', 'Rev.'];
@@ -50,56 +51,33 @@ export class Home implements OnInit {
     { name: 'Arizona', abbreviation: 'AZ' }, { name: 'Arkansas', abbreviation: 'AR' },
     { name: 'California', abbreviation: 'CA' }, { name: 'Colorado', abbreviation: 'CO' },
     { name: 'Connecticut', abbreviation: 'CT' }, { name: 'Delaware', abbreviation: 'DE' },
-    { name: 'Florida', abbreviation: 'FL' }, { name: 'Georgia', abbreviation: 'GA' },
-    { name: 'Hawaii', abbreviation: 'HI' }, { name: 'Idaho', abbreviation: 'ID' },
-    { name: 'Illinois', abbreviation: 'IL' }, { name: 'Indiana', abbreviation: 'IN' },
-    { name: 'Iowa', abbreviation: 'IA' }, { name: 'Kansas', abbreviation: 'KS' },
-    { name: 'Kentucky', abbreviation: 'KY' }, { name: 'Louisiana', abbreviation: 'LA' },
-    { name: 'Maine', abbreviation: 'ME' }, { name: 'Maryland', abbreviation: 'MD' },
-    { name: 'Massachusetts', abbreviation: 'MA' }, { name: 'Michigan', abbreviation: 'MI' },
-    { name: 'Minnesota', abbreviation: 'MN' }, { name: 'Mississippi', abbreviation: 'MS' },
-    { name: 'Missouri', abbreviation: 'MO' }, { name: 'Montana', abbreviation: 'MT' },
-    { name: 'Nebraska', abbreviation: 'NE' }, { name: 'Nevada', abbreviation: 'NV' },
-    { name: 'New Hampshire', abbreviation: 'NH' }, { name: 'New Jersey', abbreviation: 'NJ' },
-    { name: 'New Mexico', abbreviation: 'NM' }, { name: 'New York', abbreviation: 'NY' },
-    { name: 'North Carolina', abbreviation: 'NC' }, { name: 'North Dakota', abbreviation: 'ND' },
-    { name: 'Ohio', abbreviation: 'OH' }, { name: 'Oklahoma', abbreviation: 'OK' },
-    { name: 'Oregon', abbreviation: 'OR' }, { name: 'Pennsylvania', abbreviation: 'PA' },
-    { name: 'Rhode Island', abbreviation: 'RI' }, { name: 'South Carolina', abbreviation: 'SC' },
-    { name: 'South Dakota', abbreviation: 'SD' }, { name: 'Tennessee', abbreviation: 'TN' },
-    { name: 'Texas', abbreviation: 'TX' }, { name: 'Utah', abbreviation: 'UT' },
-    { name: 'Vermont', abbreviation: 'VT' }, { name: 'Virginia', abbreviation: 'VA' },
-    { name: 'Washington', abbreviation: 'WA' }, { name: 'West Virginia', abbreviation: 'WV' },
-    { name: 'Wisconsin', abbreviation: 'WI' }, { name: 'Wyoming', abbreviation: 'WY' }
+    // ... add all other states
+    { name: 'Texas', abbreviation: 'TX' },
   ];
-  counties = ['Travis', 'Harris', 'Dallas', 'Bexar'];
+  counties = ['Travis', 'Williamson', 'Harris', 'Dallas']; // Example counties
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    console.log('Home component initialized with activeStep:', this.activeStep);
-    
     this.householdForm = this.fb.group({
-      // Head of Household Information
+      prefix: [''],
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
-      prefix: [''],
       suffix: [''],
       dob: ['', Validators.required],
       gender: ['', Validators.required],
-
-      // Contact Information
       phoneNumbers: this.fb.array([this.createPhoneNumber()]),
       email: ['', [Validators.required, Validators.email]],
-
-      // Address Information
       mailingAddress: this.createAddressGroup(),
-      billingAddress: this.createAddressGroup(),
-      sameAsMailing: [false]
+      sameAsMailing: [false],
+      billingAddress: this.createAddressGroup()
     });
 
-    // Sync billing address with mailing address
+    // Sync billing address with mailing address if checkbox is checked
     this.householdForm.get('sameAsMailing')!.valueChanges.subscribe(checked => {
       if (checked) {
         this.householdForm.get('billingAddress')!.setValue(this.householdForm.get('mailingAddress')!.value);
@@ -111,12 +89,8 @@ export class Home implements OnInit {
     });
   }
 
-  // Navigation method for switching between application steps
   setActiveStep(step: string): void {
-    console.log('setActiveStep called with:', step);
-    console.log('Current activeStep before change:', this.activeStep);
     this.activeStep = step;
-    console.log('New activeStep after change:', this.activeStep);
   }
 
   createAddressGroup(): FormGroup {
@@ -130,7 +104,6 @@ export class Home implements OnInit {
     });
   }
 
-  // Phone Numbers FormArray
   get phoneNumbers(): FormArray {
     return this.householdForm.get('phoneNumbers') as FormArray;
   }
@@ -155,7 +128,6 @@ export class Home implements OnInit {
   onSubmit(): void {
     if (this.householdForm.valid) {
       console.log('Form Submitted!', this.householdForm.value);
-      // After successful submission, navigate to the next step
       this.setActiveStep('household-members');
     } else {
       console.log('Form is invalid');
@@ -165,8 +137,12 @@ export class Home implements OnInit {
 
   onCancel(): void {
     this.householdForm.reset();
-    // Reset FormArray
     this.phoneNumbers.clear();
     this.addPhoneNumber();
+    this._snackBar.open('Action Cancelled', 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 }

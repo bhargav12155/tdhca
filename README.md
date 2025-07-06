@@ -1,59 +1,63 @@
-# TDHCA
+# TDHCA Portal Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
+This project is an Angular-based web application for the TDHCA portal.
 
-## Development server
+## Prerequisites
 
-To start a local development server, run:
+Before you begin, ensure you have the following installed on your system:
 
-```bash
-ng serve
-```
+- **Node.js**: Version `^18.19.0` or `^20.9.0` or higher.
+- **npm**: Version `10.x` or higher (comes bundled with Node.js).
+- **Git**: For cloning and managing the source code.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Getting Started
 
-## Code scaffolding
+Follow these steps to get the application running on your local machine.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. Clone the Repository
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open your terminal or command prompt and run the following command to clone the project from GitHub:
 
 ```bash
-ng generate --help
+git clone https://github.com/bhargav12155/tdhca.git
 ```
 
-## Building
+### 2. Navigate to the Project Directory
 
-To build the project run:
+Change your current directory to the project folder:
 
 ```bash
-ng build
+cd tdhca/TDHCA
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 3. Install Dependencies
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Run the following command to install all the necessary packages and libraries required by the project. This might take a few minutes.
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
+### 4. Run the Application
 
-For end-to-end (e2e) testing, run:
+Once the dependencies are installed, you can start the local development server with the following command:
 
 ```bash
-ng e2e
+npx ng serve
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+This command will compile the application and start a server. By default, it will be available at `http://localhost:4200/`.
 
-## Additional Resources
+### 5. Open in Browser
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Open your favorite web browser and navigate to:
+
+[http://localhost:4200/](http://localhost:4200/)
+
+The application should now be running. The server will automatically reload the page whenever you make changes to the source files.
+
+## Available Scripts
+
+- `npm start`: Alias for `ng serve`.
+- `npm run build`: Compiles the application for production.
+- `npm test`: Runs the unit tests via Karma.

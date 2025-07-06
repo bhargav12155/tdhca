@@ -41,6 +41,11 @@ export class Sidebar implements OnInit, OnDestroy {
     }
   }
   
+  // Method to close sidebar after navigation
+  closeSidebar() {
+    this.sidebarService.closeSidebar();
+  }
+
   // Method to close sidebar after navigation on mobile
   closeOnMobile() {
     if (window.innerWidth < 768) {

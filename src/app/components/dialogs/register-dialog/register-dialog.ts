@@ -5,6 +5,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Custom validator to check if two fields match
 function passwordMatchValidator(form: FormGroup) {
@@ -22,7 +23,8 @@ function passwordMatchValidator(form: FormGroup) {
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   templateUrl: './register-dialog.html',
   styleUrls: ['./register-dialog.scss']
@@ -32,7 +34,8 @@ export class RegisterDialog {
 
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<RegisterDialog>
+    public dialogRef: MatDialogRef<RegisterDialog>,
+    private _snackBar: MatSnackBar
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -43,6 +46,11 @@ export class RegisterDialog {
 
   onCancel(): void {
     this.dialogRef.close();
+    this._snackBar.open('Action Cancelled', 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 
   onSubmit(): void {
